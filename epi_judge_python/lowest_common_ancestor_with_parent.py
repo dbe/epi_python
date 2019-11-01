@@ -6,9 +6,36 @@ from test_framework.test_failure import TestFailure
 from test_framework.test_utils import enable_executor_hook
 
 
-def lca(node0, node1):
-    # TODO - you fill in here.
-    return None
+def lca(a, b):
+    height_a = height(a)
+    height_b = height(b)
+    diff = abs(height_a - height_b)
+
+    if(height_a < height_b):
+        for _ in range(diff):
+            b = b.parent
+    elif(height_b < height_a):
+        for _ in range(diff):
+            a = a.parent
+
+    
+    while(True):
+        #Will never run into a problem of running out of nodes because the root will always at least be the LCA
+        if(a == b):
+            return a
+        a = a.parent
+        b = b.parent
+
+#O(n)
+def height(a):
+    height = 1
+
+    while(a.parent is not None):
+        a = a.parent
+        height += 1
+
+    return height
+
 
 
 @enable_executor_hook
